@@ -133,3 +133,208 @@ Dois indicadores, cada um com a ação de melhoria que ele orienta.
 
 ### Resposta-modelo≈ 11 linhas de prova
 Depois do deploy, a qualidade precisa ser acompanhada no uso real, porque muitos problemas só aparecem com usuários, dados e carga de produção. Os logs registram eventos detalhados, como erros, exceções e requisições, e permitem investigar a causa de uma falha. As métricas são valores numéricos coletados ao longo do tempo, como tempo de resposta, uso de recursos e quantidade de erros; mostram tendências e permitem comparar o sistema antes e depois de cada deploy. Os alertas monitoram essas métricas e avisam a equipe quando um limite é ultrapassado, para que ela aja antes que o problema atinja muitos usuários. Juntos, fecham o ciclo de feedback do DevOps. Dois indicadores: (1) taxa de erros, como o percentual de respostas HTTP 5xx: se sobe logo após um deploy, indica regressão e pode justificar um rollback; (2) taxa de falha de mudanças (métrica DORA), o percentual de deploys que causam incidentes: se é alta, orienta reforçar testes e gates. O MTTR, tempo médio de recuperação, também serve.
+
+---
+
+# QA e QC
+
+## Enunciado
+Diferencie Garantia da Qualidade (QA) e Controle da Qualidade (QC), apresentando um exemplo de cada e explicando por que testes não representam toda a garantia da qualidade.
+
+## Como montar a resposta
+QA: orientada ao processo, preventiva.
+Exemplo concreto de QA (padrão de código, revisão obrigatória, auditoria de processo).
+QC: orientado ao produto, detectivo.
+Exemplo concreto de QC (executar casos de teste, inspecionar o produto).
+Explicar que teste é QC; QA é mais ampla (requisitos, padrões, revisões, treinamento, melhoria contínua).
+
+### Resposta-modelo≈ 11 linhas de prova
+Garantia da Qualidade (QA) é orientada ao processo e tem caráter preventivo: define e melhora a forma de trabalhar para que os defeitos não sejam introduzidos. Exemplo: criar um padrão de codificação e tornar obrigatória a revisão de código, ou auditar se a equipe segue o processo definido. Controle da Qualidade (QC) é orientado ao produto e tem caráter detectivo: examina o que foi produzido para encontrar defeitos antes da entrega. Exemplo: executar os casos de teste de uma nova versão e registrar os defeitos encontrados. Testes são, portanto, uma atividade de QC: mostram problemas que já existem no produto, mas não impedem que eles surjam. A garantia da qualidade é mais ampla e inclui requisitos bem definidos, padrões, revisões, treinamento, métricas de processo e melhoria contínua. Um produto pode ser muito testado e ainda ter baixa qualidade se o processo continuar gerando os mesmos defeitos.
+
+---
+
+# Verificação, validação e risco
+
+## Enunciado
+Diferencie verificação e validação. Em um sistema de pagamentos com pouco tempo para testar, explique como probabilidade e impacto de falha devem orientar as prioridades.
+
+## Como montar a resposta
+Verificação: o produto está sendo construído corretamente, conforme a especificação.
+Validação: é o produto certo, atende à necessidade real do usuário.
+Risco = probabilidade × impacto; com pouco tempo, priorizar pelo risco.
+Exemplo de alta prioridade no sistema de pagamentos (valor, autorização, cobrança duplicada, segurança).
+Exemplo de baixa prioridade (layout, telas pouco usadas), com testes mais superficiais.
+
+### Resposta-modelo≈ 11 linhas de prova
+Verificação responde à pergunta “estamos construindo o produto corretamente?”: confere se o software está de acordo com a especificação, por meio de revisões, inspeções e testes contra o que foi especificado. Validação responde “estamos construindo o produto certo?”: confere se o software atende à necessidade real do usuário e do negócio, por exemplo com testes de aceitação e homologação. Um sistema pode passar na verificação e falhar na validação se a própria especificação estiver errada. Com pouco tempo, não dá para testar tudo com a mesma profundidade, então a prioridade vem do risco, que combina a probabilidade de a falha acontecer com o impacto que ela causaria. Num sistema de pagamentos, cálculo do valor, autorização da transação, cobrança duplicada e segurança dos dados têm impacto altíssimo (prejuízo financeiro, legal e de imagem) e devem ser testados primeiro e mais a fundo, assim como partes complexas ou alteradas recentemente, que falham com mais probabilidade. Itens de baixo impacto, como o layout da tela de histórico, ficam para o final.
+
+---
+
+# Revisões e análise estática
+
+## Enunciado
+Explique como revisões e análise estática identificam defeitos antes da execução do software. Diferencie walkthrough e inspeção.
+
+## Como montar a resposta
+Revisões e análise estática são técnicas estáticas: avaliam artefatos sem executar o software.
+Encontram defeitos cedo, quando são mais baratos de corrigir (até em requisitos e projeto).
+Exemplos do que encontram (requisito ambíguo, erro de lógica, variável não usada, referência nula, vulnerabilidade).
+Walkthrough: conduzido pelo autor, informal, foco em entendimento e sugestões.
+Inspeção: formal, com moderador, papéis, checklist, registro de defeitos e métricas.
+
+### Resposta-modelo≈ 11 linhas de prova
+Revisões e análise estática são técnicas de teste estático: avaliam requisitos, projeto e código sem executar o software. Por isso podem ser aplicadas cedo, até antes de existir código executável, quando corrigir um defeito custa muito menos. Nas revisões, pessoas leem o artefato e encontram requisitos ambíguos, regras de negócio faltando, erros de lógica e desvios de padrão. A análise estática usa ferramentas, como linters e o SonarQube, que examinam o código automaticamente e apontam variáveis não usadas, código inalcançável, possíveis referências nulas, vulnerabilidades e complexidade excessiva. As duas localizam o defeito diretamente, enquanto o teste dinâmico mostra uma falha cuja causa ainda precisa ser investigada. O walkthrough é uma revisão menos formal, conduzida pelo próprio autor, que apresenta o material ao grupo para explicar, receber sugestões e compartilhar conhecimento. A inspeção é a revisão mais formal: tem moderador treinado, papéis definidos, preparação individual com checklists, registro dos defeitos, métricas e acompanhamento das correções.
+
+---
+
+# Atributos e maturidade
+
+## Enunciado
+Explique por que um software funcional pode ainda apresentar baixa qualidade. Cite três atributos de qualidade abordados na aula e diferencie qualidade do produto de maturidade do processo.
+
+## Como montar a resposta
+Funcionar não basta: qualidade inclui como o software faz (desempenho, uso, falhas, manutenção).
+Três atributos de qualidade, cada um explicado (ISO/IEC 25010).
+Qualidade do produto: características do próprio software.
+Maturidade do processo: capacidade da organização de produzir de forma previsível (CMMI, MPS.BR).
+Relação: processo maduro aumenta a chance de qualidade, mas não a garante.
+
+### Resposta-modelo≈ 11 linhas de prova
+Um software funcional faz o que foi pedido, mas qualidade também envolve como ele faz. Um sistema pode calcular tudo certo e ainda assim ser lento, difícil de usar, cair com frequência, ter falhas de segurança ou ter um código tão confuso que cada alteração gera novos defeitos. A norma ISO/IEC 25010 organiza esses aspectos em características de qualidade. Três delas: usabilidade, que indica se o usuário consegue aprender e operar o sistema com facilidade; confiabilidade, que é a capacidade de funcionar sem falhas e se recuperar delas; e manutenibilidade, que é a facilidade de modificar, corrigir e testar o código. Qualidade do produto se refere às características do próprio software, observadas no código e no sistema em uso. Maturidade do processo se refere à capacidade da organização de desenvolver de forma definida, medida e previsível, avaliada por modelos como CMMI e MPS.BR. Um processo maduro aumenta a chance de entregar produtos de qualidade de forma consistente, mas não garante sozinho a qualidade de cada produto.
+
+---
+
+# Planejamento e rastreabilidade
+
+## Enunciado
+Explique os principais elementos de um plano de testes e como a rastreabilidade entre requisito, teste, resultado e defeito contribui para a revisão da qualidade.
+
+## Como montar a resposta
+Elementos do plano: escopo (o que entra e o que fica fora), objetivos e estratégia.
+Elementos do plano: ambiente, recursos, responsáveis e cronograma.
+Elementos do plano: riscos, critérios de entrada e de saída, entregáveis.
+Rastreabilidade: requisito ↔ teste ↔ resultado ↔ defeito, normalmente numa matriz.
+Contribuição: cobertura de requisitos, análise de impacto e decisão de liberar baseada em evidências.
+
+### Resposta-modelo≈ 11 linhas de prova
+O plano de testes documenta como os testes serão conduzidos. Seus principais elementos são: escopo (o que será e o que não será testado); objetivos; estratégia (níveis, tipos e técnicas de teste); ambiente e ferramentas; recursos e responsáveis; cronograma; riscos e contingências; critérios de entrada e de saída, por exemplo todos os casos críticos executados e nenhum defeito crítico aberto; e entregáveis, como os relatórios. A rastreabilidade liga cada requisito aos casos de teste que o verificam, cada teste ao resultado da execução e cada falha ao defeito registrado, normalmente numa matriz de rastreabilidade. Na revisão da qualidade, ela mostra quais requisitos foram cobertos e quais ficaram sem teste, a situação de cada requisito (passou, falhou, bloqueado) e quais defeitos afetam funções importantes. Também permite analisar o impacto de uma mudança de requisito, porque se sabe quais testes refazer. Assim, a decisão de liberar deixa de se basear em impressões e passa a se apoiar em evidências.
+
+---
+
+# Erro, defeito e falha
+
+## Enunciado
+Diferencie erro, defeito e falha utilizando um exemplo. Explique por que uma execução de testes sem falhas não comprova ausência absoluta de defeitos.
+
+## Como montar a resposta
+Erro: engano humano.
+Defeito: imperfeição deixada no artefato ou no código por causa do erro.
+Falha: comportamento incorreto observado na execução.
+Um único exemplo que passe pelos três (ex.: “>” no lugar de “>=”).
+Testes sem falhas não provam ausência de defeitos: testes mostram presença; teste exaustivo é impossível; o defeito pode estar num caminho não executado.
+
+### Resposta-modelo≈ 11 linhas de prova
+Erro é uma ação humana equivocada, como entender mal um requisito ou escrever a condição errada. Defeito (bug) é a imperfeição que esse erro deixa no artefato, como uma linha de código incorreta. Falha é o comportamento incorreto observado quando o código com defeito é executado. Exemplo: a regra diz que compras a partir de R$ 100 têm desconto, e o desenvolvedor escreve “valor > 100” em vez de “valor >= 100” (erro). O código fica com a condição errada (defeito). Quando um cliente compra exatamente R$ 100 e não recebe o desconto, ocorre a falha. Um defeito pode existir sem nunca gerar falha, se aquele trecho não for executado com a entrada que o revela. Por isso, testes sem falhas não provam que não há defeitos: testes mostram a presença de defeitos, não a sua ausência. Testar todas as entradas e caminhos é impossível, então os testes cobrem só uma amostra; no exemplo, se ninguém testar o valor 100, o defeito passa despercebido. Testes sem falhas aumentam a confiança, mas não garantem um software sem defeitos.
+
+---
+
+# Níveis de teste
+
+## Enunciado
+Diferencie testes unitários, de integração, de sistema e de aceitação. Apresente um exemplo de cada em uma aplicação de vendas.
+
+## Como montar a resposta
+Unitário: menor parte do código, isolada, com exemplo de vendas.
+Integração: comunicação entre componentes, com exemplo.
+Sistema: sistema completo contra os requisitos (funcionais e não funcionais), com exemplo.
+Aceitação: cliente ou usuário confirma que atende ao negócio, com exemplo.
+
+### Resposta-modelo≈ 11 linhas de prova
+Os níveis de teste se diferenciam pelo tamanho do que é testado e pelo objetivo. O teste unitário verifica a menor parte do código, isolada, como uma função ou classe, e normalmente é escrito pelo desenvolvedor. Exemplo: verificar se a função calcularTotal aplica corretamente 10% de desconto a um pedido. O teste de integração verifica a comunicação entre componentes ou sistemas. Exemplo: ao confirmar uma venda, o módulo de pedidos chama o serviço de estoque e a quantidade do produto é baixada corretamente. O teste de sistema avalia o sistema completo, de ponta a ponta, contra os requisitos funcionais e não funcionais, num ambiente parecido com o de produção. Exemplo: buscar um produto, colocá-lo no carrinho, pagar com cartão e receber o e-mail de confirmação, medindo também o tempo de resposta. O teste de aceitação é feito pelo cliente ou usuário para confirmar se o sistema atende às necessidades do negócio. Exemplo: a equipe comercial registra uma venda real com cupom promocional e aprova a entrega.
+
+---
+
+# Caixa preta e caixa branca
+
+## Enunciado
+Diferencie caixa preta e caixa branca. Para uma entrada que aceita idades inteiras de 18 a 65 anos, proponha valores para testar os limites e explique por que cobertura de código alta não garante testes eficazes.
+
+## Como montar a resposta
+Caixa preta: baseado na especificação, em entradas e saídas, sem ver o código.
+Caixa branca: baseado na estrutura interna, medido por cobertura de comandos e decisões.
+Valores-limite propostos: 17, 18, 19, 64, 65, 66 (no mínimo 17, 18, 65 e 66).
+Justificar: os defeitos se concentram nas fronteiras (ex.: “>” no lugar de “>=”).
+Cobertura alta não garante eficácia: mede execução, não verificação (teste sem asserção, valores que não revelam o defeito, requisitos não implementados).
+
+### Resposta-modelo≈ 11 linhas de prova
+No teste caixa preta, os casos são criados a partir da especificação, sem olhar o código: avalia-se o que o sistema faz, comparando entradas e saídas, com técnicas como partição de equivalência e análise de valor-limite. No teste caixa branca, os casos são criados a partir da estrutura interna do código, buscando executar comandos, decisões e caminhos; sua medida é a cobertura de código. Para idades inteiras de 18 a 65, a análise de valor-limite testa cada fronteira e seus vizinhos: 17 (inválido), 18 (válido), 19 (válido), 64 (válido), 65 (válido) e 66 (inválido). As fronteiras são escolhidas porque é nelas que aparecem erros como usar “>” no lugar de “>=”. Cobertura alta não garante testes eficazes, porque mostra apenas que as linhas foram executadas, não que o resultado foi verificado: um teste sem asserções pode chegar a 100% de cobertura sem detectar nada. Além disso, testar 30 e 70 cobre os dois caminhos do “if”, mas não revela o erro no limite 18, e a cobertura não mostra requisitos que nem foram implementados.
+
+---
+
+# Ciclo TDD
+
+## Enunciado
+Explique o ciclo Red-Green-Refactor do TDD, justificando por que o teste deve falhar antes da implementação e por que a refatoração faz parte do ciclo.
+
+## Como montar a resposta
+Red: escrever um teste que falha para um comportamento novo.
+Green: escrever o código mínimo para o teste passar.
+Refactor: melhorar o código sem mudar o comportamento, com os testes verdes.
+Por que falhar antes: prova que o teste detecta a ausência do comportamento (evita teste que passa sempre).
+Por que refatorar: o código mínimo acumula duplicação e dívida técnica; os testes dão segurança para melhorar.
+
+### Resposta-modelo≈ 11 linhas de prova
+No TDD (Test-Driven Development), o teste é escrito antes do código, em ciclos curtos de três etapas. No Red, escreve-se um teste automatizado para um comportamento que ainda não existe; ao executá-lo, ele falha. No Green, escreve-se o código mínimo necessário para o teste passar, sem se preocupar ainda com elegância. No Refactor, melhora-se a estrutura do código e do teste (remover duplicação, melhorar nomes, simplificar) sem mudar o comportamento, rodando os testes para garantir que tudo continua verde. Depois o ciclo recomeça com o próximo comportamento. O teste precisa falhar antes da implementação para provar que é capaz de detectar a ausência do comportamento. Um teste que já passa sem o código pode estar errado, testando outra coisa ou sem asserção, e daria uma falsa segurança; a falha também confirma que o requisito ainda não foi atendido. A refatoração faz parte do ciclo porque o código do Green costuma ser simples ou repetido. Sem ela, a dívida técnica se acumula; com os testes já escritos, dá para melhorar o design com segurança.
+
+---
+
+# Testes legíveis e dependências
+
+## Enunciado
+Explique a organização Arrange-Act-Assert e como o uso de doubles de teste pode isolar dependências. Indique um risco do excesso de mocks.
+
+## Como montar a resposta
+Arrange: preparar dados, objetos e dependências.
+Act: executar a ação testada (normalmente uma chamada).
+Assert: verificar o resultado esperado; a separação deixa o teste legível.
+Doubles substituem dependências reais (banco, API, e-mail) para isolar a unidade: teste rápido e determinístico.
+Tipos de double (stub, mock, fake) e a função de cada um.
+Um risco do excesso de mocks bem explicado (acoplamento à implementação ou falsa confiança na integração).
+
+### Resposta-modelo≈ 11 linhas de prova
+O padrão Arrange-Act-Assert organiza o teste em três blocos. No Arrange, prepara-se o cenário: dados, objetos e dependências. No Act, executa-se a ação testada, normalmente uma única chamada. No Assert, verifica-se se o resultado é o esperado. Exemplo: criar um carrinho com dois itens, chamar calcularTotal() e verificar se o total é R$ 50. Essa separação deixa claro o que o teste faz e facilita achar a causa quando ele falha. Doubles de teste são objetos que substituem dependências reais durante o teste, como banco de dados, API de pagamento ou serviço de e-mail. Um stub devolve respostas prontas, um mock verifica se uma interação aconteceu (por exemplo, se o e-mail foi enviado uma vez) e um fake é uma implementação simplificada, como um banco em memória. Assim a unidade é testada de forma isolada, rápida e determinística, sem depender de rede ou de dados externos. O risco do excesso de mocks é o teste ficar acoplado à implementação: passa a verificar como o código faz e não o que ele entrega, quebra a cada refatoração e pode passar mesmo com a integração real quebrada, dando falsa confiança.
+
+---
+
+# Automação por camadas
+
+## Enunciado
+Explique por que não é adequado automatizar todos os testes pela interface. Descreva o papel de testes unitários, de API, de interface e exploratórios em uma estratégia equilibrada.
+
+## Como montar a resposta
+Por que não tudo pela interface: lento, frágil, caro de manter e difícil de diagnosticar.
+Unitários: a base, muitos, rápidos, cobrem regras e cálculos.
+API ou serviço: o meio, verificam integrações e regras sem depender da tela, mais estáveis.
+Interface (end-to-end): o topo, poucos, só os fluxos críticos.
+Exploratórios: feitos por pessoas, encontram o inesperado e problemas de usabilidade.
+
+### Resposta-modelo≈ 11 linhas de prova
+Automatizar todos os testes pela interface não é adequado porque os testes de UI são os mais lentos, os mais caros de manter e os mais frágeis: uma mudança de layout, de seletor ou no tempo de carregamento quebra o teste sem que exista defeito. Quando falham, também é difícil localizar a causa. Uma suíte só de UI forma o antipadrão da “casquinha de sorvete”, com feedback lento e pouca confiança. A estratégia equilibrada segue a pirâmide de testes. Na base ficam muitos testes unitários, rápidos, baratos e precisos, que verificam regras de negócio e cálculos isoladamente e rodam a cada commit. No meio ficam os testes de API ou de serviço, que verificam integrações e regras pelas interfaces do sistema (por exemplo, criar um pedido pela API e conferir a resposta) sem depender da tela, e por isso são mais estáveis. No topo, poucos testes de interface (end-to-end) cobrem apenas os fluxos críticos, como login e finalização da compra. Ao lado da pirâmide ficam os testes exploratórios, feitos por pessoas, que usam criatividade e conhecimento do negócio para encontrar problemas de usabilidade e comportamentos que nenhum script prevê.
+
+---
+
+# Flaky tests, smoke e regressão
+
+## Enunciado
+Uma suíte falha de modo intermitente sem mudanças no produto. Explique o que são flaky tests e proponha duas medidas para reduzir o problema. Diferencie smoke test de regressão.
+
+## Como montar a resposta
+Definir flaky test: não determinístico, passa e falha sem mudança no código.
+Causas (esperas fixas e assincronia, ordem e dados compartilhados, rede e serviços externos, data e hora).
+Medida 1 explicada (ex.: esperas por condição, isolamento de dados, doubles para serviços externos).
+Medida 2 explicada (ex.: histórico de execuções, quarentena e correção prioritária).
+Smoke: pequeno e rápido, verifica o essencial e decide se dá para seguir testando.
+Regressão: ampla, garante que a mudança não quebrou o que já funcionava.
+
+### Resposta-modelo≈ 11 linhas de prova
+Flaky tests são testes não determinísticos: com o mesmo código, às vezes passam e às vezes falham. Causas comuns: esperas fixas e operações assíncronas, dependência da ordem de execução ou de dados compartilhados entre testes, serviços externos e rede instáveis, e uso da data e hora reais. O maior prejuízo é a perda de confiança: a equipe reexecuta o pipeline até ficar verde e passa a ignorar falhas reais. Duas medidas: (1) eliminar as fontes de não determinismo, trocando esperas fixas por esperas por condição, isolando cada teste com seus próprios dados (setup e teardown) e substituindo serviços externos por doubles; (2) monitorar e colocar em quarentena: usar o histórico de execuções para identificar os testes instáveis, retirá-los temporariamente da suíte que bloqueia o pipeline e corrigi-los com prioridade. Smoke test é um conjunto pequeno e rápido que verifica se as funções essenciais funcionam (o sistema sobe, o login e a página principal funcionam), para decidir se a versão pode seguir para testes mais profundos. Teste de regressão é mais amplo: reexecuta os testes das funcionalidades existentes para garantir que a mudança não quebrou o que já funcionava.
